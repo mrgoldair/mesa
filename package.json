@@ -1,0 +1,28 @@
+{
+  "name": "mesa",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A library for functional programming in Javascript",
+  "main": "Mesa.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrgoldair/mesa.git"
+  },
+  "keywords": [
+    "fp",
+    "javascript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrgoldair/mesa/issues"
+  },
+  "homepage": "https://github.com/mrgoldair/mesa#readme",
+  "devDependencies": {
+    "fast-check": "^2.20.0",
+    "jest": "^27.4.5"
+  }
+}
