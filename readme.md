@@ -1,5 +1,6 @@
-<img src="logo.svg" width="300px" style="display:block;margin:0 auto;"/>
-
+<p align="center" width="100%">
+	<img src="logo.svg" width="300px"/>
+</p>
 <br>
 <br>
 
