@@ -2,9 +2,6 @@
  * Mesa - Maybe
  */
 
-import { assert } from 'console';
-import { compose } from './Fn.js';
-
 /**
  * Serves as the base struct for our type
  */
@@ -12,7 +9,6 @@ const maybe = {
   unwrap: function() {
     return this.value;
   },
-  // Functor
   map: function(fn) {
     return this.kind == "Nil" ? Nil() : Maybe.of(fn(this.value));
   }

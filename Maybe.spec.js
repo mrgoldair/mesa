@@ -3,8 +3,9 @@
  */
 
 import { Maybe } from './Maybe.js';
-import fc from 'fast-check';
 import { identity, compose } from './Fn.js';
+
+import fc from 'fast-check';
 
 describe('Maybe functor laws', () => {
 

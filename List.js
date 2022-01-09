@@ -2,7 +2,7 @@
  * Mesa - List
  */
 
-import { curry, compose } from './Fn.js';
+import { curry } from './Fn.js';
 
 /**
  * A curried version of the built-in map
