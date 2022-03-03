@@ -6,10 +6,10 @@
  * Serves as the base struct for our type
  */
 const maybe = {
-  unwrap: function() {
+  unwrap: function () {
     return this.value;
   },
-  map: function(fn) {
+  map: function (fn) {
     return this.kind == "Nil" ? Nil() : Maybe.of(fn(this.value));
   }
 }

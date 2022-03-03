@@ -1,1 +1,4 @@
-import { Maybe } from "./Maybe";
+import { curry } from './Fn';
+
+const map =
+  curry((fn, container) => container.map(fn))

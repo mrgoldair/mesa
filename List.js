@@ -8,7 +8,8 @@ import { curry } from './Fn.js';
  * A curried version of the built-in map
  */
 const map =
-  Fn.curry((fn, xs) => xs.map(fn))
+  Fn.curry((fn, container) => container.map(fn))
+
 
 /**
  * A curried version of the built-in filter
@@ -16,11 +17,13 @@ const map =
 const filter =
   Fn.curry((fn, xs) => xs.filter(fn))
 
+
 /**
  * A curried version of the built-in reduce
  */
 const reduce =
   Fn.curry((fn, init, xs) => xs.reduce(fn,init))
+
 
 /**
  * Push `item` onto the front of `xs`
@@ -37,6 +40,7 @@ const cons =
     return copy
   }
 
+
 /**
  * Push `item` onto the back of `xs`
  * @param {*} item - An array-like structure
@@ -51,6 +55,7 @@ const conj =
   return copy
 }
 
+
 /**
  * 
  */
@@ -62,6 +67,7 @@ const slidingOf =
     }
     return groups;
   })
+
 
 /**
  * 
@@ -77,6 +83,7 @@ const map2 =
     return r;
   })
 
+
 /**
  * `nth` item of an array-like
  * - Does not bounds check
@@ -84,14 +91,16 @@ const map2 =
 const nth =
   Fn.curry((nth, xs) => xs[nth])
 
+
 /**
  * First item of an array-like
  * - Does not bounds check
- * @type {[a] -> a}
+ * @type {(a) => a}
  */
 const first =
   xs =>
     nth(0,xs)
+
 
 /**
  * Last item of an array-like
@@ -111,6 +120,7 @@ const empty =
   xs =>
     xs.length == 0
 
+
 /**
  * A sequence featuring only every `nth` item
  * @type {number -> number -> [a] -> [a]}
@@ -128,6 +138,42 @@ const everyNth =
     return res.filter(n => n);
   })
 
+
+/**
+ * Gathers array, `xs`, into groups of size `n`
+ * 
+ * e.g. [ 1,2,3,4,5,6 ] -> [ [1,2], [3,4], [5,6] ]
+ */
+ const groupsOf =
+ curry((n,xs) => {
+   // Prepare
+   let res = [];
+   // Fill
+   for (let i = 0;i <= xs.length;i += n){
+     res = conj(xs.slice(i,i + n), res)
+   }
+   // Return
+   return res.filter(xs => xs.length != 0);
+ })
+
+
+/**
+* Turns an array,`xs`, of records into a map where keys are determined by `fn`
+* 
+* `fn` is expected (but not required) to return keys extracted from the records
+* eg. [ { name:"Tim" }, { name:"Rory" } ] -> { name: [ "Tim", "Rory" ] }
+*/
+const groupBy =
+ (fn, xs) => {
+   return xs.reduce((acc,curr) => {
+     return {
+       ...acc,
+       [fn(curr)]: acc[fn(curr)]
+                   ? conj(curr, acc[fn(curr)])
+                   : acc[fn(curr)] = [curr]
+   }}, {})
+ }
+
 module.exports = {
   sum,
   map,
@@ -140,5 +186,7 @@ module.exports = {
   first,
   last,
   conj,
-  empty
+  empty,
+  groupBy,
+  groupsOf
 }

@@ -41,6 +41,17 @@ const identity =
  * @returns {fn} - The composition of `f` and `g`
  */
 const compose =
-  (f, g) => x => f(g(x))
+  (f, g) =>
+    x => g(f(x))
 
-export { identity, curry, compose }
+/**
+ * Acts as a functional facade for calling `map`
+ * via dot notation on a type
+ * 
+ * @param {fn} - A unary function
+ * @param {container} - A functor
+ */
+const map =
+  curry((fn,container) => container.map(fn))
+
+export { identity, curry, compose, map }
