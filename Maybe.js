@@ -2,6 +2,8 @@
  * Mesa - Maybe
  */
 
+import { map, ap } from "./Fn";
+
 /**
  * Serves as the base struct for our type
  */
@@ -19,6 +21,15 @@ const Maybe = {
     return this.kind === "Nil"
       ? Nil()
       : Maybe.of(fn(this.value));
+  },
+
+  ap: function(maybe) {
+    if (!(maybe.kind === "Nil" | maybe.kind === "Some"))
+      return console.error("ap :: argument must be of type Maybe")
+
+    return this.kind === "Nil"
+      ? Nil()
+      : maybe.map(this.value)
   }
 }
 

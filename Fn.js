@@ -54,4 +54,16 @@ const compose =
 const map =
   curry((fn,container) => container.map(fn))
 
-export { identity, curry, compose, map }
+/**
+ * Applicative Functor
+ */
+const ap =
+  curry((fn,container) => fn.ap(container))
+
+export { 
+  identity,
+  curry,
+  compose,
+  map,
+  ap
+}
