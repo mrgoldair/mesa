@@ -2,13 +2,13 @@
  * Mesa - Maybe
  */
 
-import { map, ap } from "./Fn";
-
 /**
  * Serves as the base struct for our type
  */
 const Maybe = {
 
+  // pure / return
+  // Puts value in minimal context
   of: value => {
     return value !== null ? Some(value) : Nil()
   },
@@ -25,7 +25,10 @@ const Maybe = {
 
   ap: function(maybe) {
     if (!(maybe.kind === "Nil" | maybe.kind === "Some"))
-      return console.error("ap :: argument must be of type Maybe")
+      return console.error("Maybe :: ap :: second argument must be of type Maybe")
+
+    if (typeof this.value !== "function")
+      return console.error("Maybe :: ap :: first argument must be a function")
 
     return this.kind === "Nil"
       ? Nil()
