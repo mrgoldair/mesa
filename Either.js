@@ -2,39 +2,33 @@
  * Mesa - Either
  */
 
-const left = {
-  kind: "Left",
-  map: function(_) {
-    return this
-  }
-}
+const Either = {
+  
+  // Pointed functor / pure / return
+  of (value){
+    return Right(value);
+  },
 
-const right = {
-  kind: "Right",
+  map: function(fn){
+    return this.kind === "Right"
+            ? Right(fn(this.value))
+            : this;
+  },  
+
   unwrap: function(){
     return this.value
-  },
-  map: function(fn){
-    return Right(fn(this.value))
-  }
-}
-
-// Pointed functor
-const Either = {
-  of (value){
-    return Right(value)
-  }
+  }    
 }
 
 // Right type constructor
 const Right =
   value =>
-    Object.assign({ value }, right )
+    Object.assign({ kind:"Right", value }, Either )
 
 // Left type constructor
 const Left =
   value =>
-    Object.assign({ value }, left )
+    Object.assign({ kind:"Left", value }, Either )
 
 export {
   Either,

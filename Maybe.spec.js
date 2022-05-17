@@ -4,14 +4,17 @@
 
 import { Maybe, Some, Nil } from './Maybe.js';
 import { identity, compose } from './Fn.js';
-
 import fc from 'fast-check';
 
 describe('Adheres to functor laws', () => {
 
   test('Identity :: map id a = a', () => {
+
     fc.assert(fc.property(fc.string(), x => {
-      let maybe = Maybe.of(x).map(identity);
+      let maybe =
+        Maybe.of(x)
+             .map(identity);
+
       return maybe.unwrap() === x;
     }))
   })
