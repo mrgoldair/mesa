@@ -1,5 +1,7 @@
 /**
- * Laws for Either type
+ * Either Spec
+ * 
+ * Using regular laws of FP
  */
 
 import { Either, Right, Left } from './Either.js';
@@ -41,4 +43,10 @@ describe('Adheres to functor laws', () => {
       expect(mapmap).toEqual(mapcompose);
     }))
   })
+})
+
+describe('Either is an applicative functor', () => {
+
+  test('Identity :: pure f <*> v = v', () => {})
+  test('Homomorphism :: pure f <*> pure a = pure (f a)', () => {})
 })

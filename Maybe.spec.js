@@ -1,5 +1,7 @@
 /**
- * Laws for Maybe type
+ * Maybe Spec
+ * 
+ * Using regular laws of FP.
  */
 
 import { Maybe, Some, Nil } from './Maybe.js';
@@ -56,6 +58,36 @@ describe('Adheres to applicative functor laws',() => {
       let Mright = Maybe.of(identity(x));
 
       return Mleft.unwrap() === Mright.unwrap();
+    }))
+  })
+
+  test('Interchange :: u <*> pure y = pure ($ y) <*> u', () => {})
+
+  test('Composition :: (compose) <*> a <*> b <*> c = a <*> (b <*> c)', () => {
+
+    let excl =
+      s => s + "!"
+    
+    let caps =
+      s => s.toUpperCase()
+
+    fc.assert(fc.property(fc.string(), s => {
+      let m = Some(s)
+
+      // (compose) <*> a <*> b <*> c
+      let left =
+        Maybe.of(compose)
+          .ap(Maybe.of(caps))
+          .ap(Maybe.of(excl))
+          .ap(m).unwrap()
+
+      // a <*> (b <*> c)
+      let right =
+        Maybe.of(excl)
+          .ap(Maybe.of(caps).ap(m))
+          .unwrap()
+      
+      return left === right;
     }))
   })
 })
