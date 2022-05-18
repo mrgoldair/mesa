@@ -41,8 +41,8 @@ const identity =
  * @returns {fn} - The composition of `f` and `g`
  */
 const compose =
-  (f, g) =>
-    x => g(f(x))
+  curry((f, g) =>
+    x => g(f(x)))
 
 /**
  * Acts as a functional facade for calling `map`
