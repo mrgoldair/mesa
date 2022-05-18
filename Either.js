@@ -9,15 +9,21 @@ const Either = {
     return Right(value);
   },
 
+  unwrap: function(){
+    return this.value
+  },
+
   map: function(fn){
     return this.kind === "Right"
             ? Right(fn(this.value))
             : this;
-  },  
+  },
 
-  unwrap: function(){
-    return this.value
-  }    
+  ap: function(either){
+    return this.kind === "Right"
+            ? either.map(this.value)
+            : this;
+  }
 }
 
 // Right type constructor
