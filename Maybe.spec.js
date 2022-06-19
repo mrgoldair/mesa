@@ -91,3 +91,19 @@ describe('Adheres to applicative functor laws',() => {
     }))
   })
 })
+
+describe('Adheres to monad laws',() => {
+  
+  test('Left Identity :: return a >>= h = h a',() => {
+    fc.assert(fc.property(fc.string(), s => {
+      let f = t => Some(s + "!");
+
+      let ma = Maybe.of(s)
+      let mb = ma.bind(f)
+
+      let mc = f(s)
+
+      return mb.unwrap() === mc.unwrap();
+    }))
+  })
+})

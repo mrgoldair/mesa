@@ -31,7 +31,7 @@ describe('Adheres to functor laws', () => {
       let f =
         n => n + 1
       
-      // Our `g` which doubles                    
+      // Our `g` which doubles
       let g =
         n => n * 2
 

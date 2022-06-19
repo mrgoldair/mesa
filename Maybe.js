@@ -33,6 +33,16 @@ const Maybe = {
     return this.kind === "Nil"
       ? Nil()
       : maybe.map(this.value)
+  },
+
+  bind: function(fn){
+
+    if(typeof fn !== "function")
+      return console.error("Maybe :: bind :: argument fn must be a function")
+    
+    return this.kind === "Nil"
+              ? Nil()
+              : fn(this.value);
   }
 }
 
