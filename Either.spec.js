@@ -100,3 +100,47 @@ describe('Either is an applicative functor', () => {
   test('Interchange :: ', () => {})
 
 })
+
+describe('Adheres to monad laws',() => {
+  
+  test('Left Identity :: return a >>= h = h a',() => {
+    fc.assert(fc.property(fc.string(), s => {
+      let f =
+        s => Right(s + "!");
+
+      let ma = Either.of(s)
+      let mb = ma.bind(f)
+
+      let mc = f(s)
+
+      return mb.unwrap() === mc.unwrap();
+    }))
+  })
+
+  test('Right Identity :: m >>= return = m',() => {
+    fc.assert(fc.property(fc.string(), s => {
+      let ma = Either.of(s)
+      let mb = ma.bind(Either.of)
+      
+      ma.unwrap() === mb.unwrap()
+    }))
+  })
+
+  test('Associativity :: (m >>= f) >>= g = m >>= (x -> f x >>= g)',() => {
+    fc.assert(fc.property(fc.string(),s => {
+
+      const f =
+        s => Right(s.toUpperCase())
+      
+      const g =
+        s => Right(s + "!!")
+
+      let m = Either.of(s)
+
+      let mleft = (m.bind(f)).bind(g)
+      let mright = m.bind(x => f(x).bind(g))
+
+      mleft.unwrap() === mright.unwrap()
+    }))
+  })
+})

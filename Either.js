@@ -23,6 +23,13 @@ const Either = {
     return this.kind === "Right"
             ? either.map(this.value)
             : this;
+  },
+
+  // fn :: a -> ma
+  bind: function(fn){
+    return this.kind === "Left"
+            ? Left()
+            : fn(this.value);
   }
 }
 
@@ -33,8 +40,8 @@ const Right =
 
 // Left type constructor
 const Left =
-  value =>
-    Object.assign({ kind:"Left", value }, Either )
+  () =>
+    Object.assign({ kind:"Left" }, Either )
 
 export {
   Either,
