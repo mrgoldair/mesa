@@ -106,4 +106,31 @@ describe('Adheres to monad laws',() => {
       return mb.unwrap() === mc.unwrap();
     }))
   })
+
+  test('Right Identity :: m >>= return = m',() => {
+    fc.assert(fc.property(fc.string(), s => {
+      let ma = Maybe.of(s)
+      let mb = ma.bind(Maybe.of)
+      
+      mb.unwrap() === ma.unwrap()
+    }))
+  })
+
+  test('Associativity :: (m >>= f) >>= g = m >>= (x -> f x >>= g)',() => {
+    fc.assert(fc.property(fc.string(),s => {
+
+      const f =
+        s => Some(s.toUpperCase())
+      
+      const g =
+        s => Some(s + "!!")
+
+      let m = Maybe.of(s)
+
+      let mleft = (m.bind(f)).bind(g)
+      let mright = m.bind(x => f(x).bind(g))
+
+      mleft.unwrap() === mright.unwrap()
+    }))
+  })
 })
