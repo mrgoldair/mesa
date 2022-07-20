@@ -2,9 +2,6 @@
  * Mesa - Maybe
  */
 
-/**
- * Serves as the base struct for our type
- */
 const Maybe = {
 
   // pure / return
